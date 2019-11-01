@@ -10,7 +10,7 @@ import * as CartActions from '../../store/modules/cart/actions';
 
 import { ProductList } from './styles';
 
-function Home({ addToCart, amount }) {
+function Home({ addRequest, amount }) {
   const [products, setProducts] = useState([]);
 
   async function loadProducts() {
@@ -32,8 +32,8 @@ function Home({ addToCart, amount }) {
     fetchProducts();
   }, []);
 
-  function handleAddProduct(product) {
-    addToCart(product);
+  function handleAddProduct(id) {
+    addRequest(id);
   }
 
   return (
@@ -44,7 +44,7 @@ function Home({ addToCart, amount }) {
           <strong>{product.title}</strong>
           <span>{product.priceFormated}</span>
 
-          <button type="button" onClick={() => handleAddProduct(product)}>
+          <button type="button" onClick={() => handleAddProduct(product.id)}>
             <div>
               <MdAddShoppingCart size={20} color="#fff" />{' '}
               {amount[product.id] || 0}
@@ -59,8 +59,7 @@ function Home({ addToCart, amount }) {
 }
 
 Home.propTypes = {
-  addToCart: PropTypes.func.isRequired,
-  amount: PropTypes.number.isRequired,
+  addRequest: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

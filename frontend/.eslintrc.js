@@ -31,6 +31,7 @@ module.exports = {
     ],
     'import/prefer-default-export': 'off',
     'no-param-reassign': 'off',
-    'no-console': ['error', { allow: ['tron'] }]
+    'no-console': ['error', { allow: ['tron'] }],
+    "react/forbid-prop-types": [<enabled/>, { "forbid": [<string/>], "checkContextTypes": <boolean/>, "checkChildContextTypes": <boolean/> }]
   },
 };

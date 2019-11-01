@@ -10,7 +10,7 @@ import * as CartActions from '../../store/modules/cart/actions';
 
 import { ProductList } from './styles';
 
-function Home({ addRequest, amount }) {
+function Home({ addRequest, amount, history }) {
   const [products, setProducts] = useState([]);
 
   async function loadProducts() {
@@ -34,6 +34,8 @@ function Home({ addRequest, amount }) {
 
   function handleAddProduct(id) {
     addRequest(id);
+
+    history.push('/cart');
   }
 
   return (
@@ -60,6 +62,10 @@ function Home({ addRequest, amount }) {
 
 Home.propTypes = {
   addRequest: PropTypes.func.isRequired,
+  amount: PropTypes.object.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({

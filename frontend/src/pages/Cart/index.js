@@ -83,15 +83,7 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
 }
 
 Cart.propTypes = {
-  cart: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      priceFormatted: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+  cart: PropTypes.array.isRequired,
   total: PropTypes.string.isRequired,
   removeFromCart: PropTypes.func.isRequired,
   updateAmountRequest: PropTypes.func.isRequired,

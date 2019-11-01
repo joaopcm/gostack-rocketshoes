@@ -23,7 +23,7 @@ function* addToCart({ id }) {
   }
 
   if (productExists) {
-    yield put(updateAmountSuccess(id, amount));
+    return yield put(updateAmountSuccess(id, amount));
   }
 
   const response = yield call(api.get, `/products/${id}`);
@@ -37,13 +37,13 @@ function* addToCart({ id }) {
   return yield put(addToCartSuccess(data));
 }
 
-function* updateAmount(id, amount) {
+function* updateAmount({ id, amount }) {
   if (amount <= 0) return;
 
   const stock = yield call(api.get, `/stock/${id}`);
   const stockAmount = stock.data.amount;
 
-  if (stock >= stockAmount) {
+  if (amount > stockAmount) {
     toast.error('Quantity ordered out of stock');
     return;
   }

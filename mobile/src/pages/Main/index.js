@@ -18,7 +18,7 @@ import {
 import api from '../../services/api';
 import { formatPrice } from '../../utils/format';
 
-function Main({ navigation }) {
+function Main() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {

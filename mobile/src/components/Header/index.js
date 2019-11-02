@@ -1,7 +1,7 @@
 import React from 'react';
-import { Image } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import PropTypes from 'prop-types';
 
 import {
   Container,
@@ -11,12 +11,12 @@ import {
   Logo,
 } from './styles';
 
-export default function Header() {
+function Header({ navigation }) {
   return (
     <Container>
       <Logo />
 
-      <ShoppingCartContainer>
+      <ShoppingCartContainer onPress={() => navigation.navigate('Cart')}>
         <Icon name="shopping-basket" color="#fff" size={24} />
         <ShoppingCartBadgeContainer>
           <ShoppingCartText>5</ShoppingCartText>
@@ -25,3 +25,11 @@ export default function Header() {
     </Container>
   );
 }
+
+Header.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default Header;

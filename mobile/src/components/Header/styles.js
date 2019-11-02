@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
 
+import colors from '../../styles/colors';
+
 import logo from '../../assets/images/logo.png';
 
 export const Container = styled.View`
@@ -17,7 +19,7 @@ export const Logo = styled.Image.attrs({
   height: 24px;
 `;
 
-export const ShoppingCartContainer = styled.View`
+export const ShoppingCartContainer = styled.TouchableOpacity`
   position: relative;
 `;
 
@@ -32,7 +34,7 @@ export const ShoppingCartBadgeContainer = styled.View`
   width: 16px;
   height: 16px;
   border-radius: 8px;
-  background: #7159c1;
+  background: ${colors.primary};
 `;
 
 export const ShoppingCartText = styled.Text`

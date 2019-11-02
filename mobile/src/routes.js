@@ -7,6 +7,8 @@ import Header from './components/Header';
 import Main from './pages/Main';
 import Cart from './pages/Cart';
 
+import colors from './styles/colors';
+
 const Routes = createAppContainer(
   createStackNavigator(
     {
@@ -16,13 +18,16 @@ const Routes = createAppContainer(
     {
       headerLayoutPreset: 'left',
       headerBackTitleVisible: false,
-      defaultNavigationOptions: {
-        headerTitle: <Header />,
+      cardStyle: {
+        backgroundColor: `${colors.dark}`,
+      },
+      defaultNavigationOptions: navigation => ({
+        headerTitle: <Header {...navigation} />,
         headerStyle: {
-          backgroundColor: '#141419',
+          backgroundColor: `${colors.header}`,
         },
         headerTintColor: '#fff',
-      },
+      }),
     }
   )
 );

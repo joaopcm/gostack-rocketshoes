@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,7 +21,7 @@ import {
 import api from '../../services/api';
 import { formatPrice } from '../../utils/format';
 
-function Main({ navigation }) {
+function Main() {
   const [products, setProducts] = useState([]);
 
   const amount = useSelector(state =>
@@ -45,8 +44,6 @@ function Main({ navigation }) {
 
   function handleAddProduct(id) {
     dispatch(CartActions.addToCartRequest(id));
-
-    // navigation.navigate('Cart');
   }
 
   return (
@@ -73,11 +70,5 @@ function Main({ navigation }) {
     </Container>
   );
 }
-
-Main.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
-};
 
 export default Main;

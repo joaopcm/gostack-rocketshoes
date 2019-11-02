@@ -1,14 +1,27 @@
 import React from 'react';
 import { Image } from 'react-native';
 
-import { Container } from './styles';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import logo from '../../assets/images/logo.png';
+import {
+  Container,
+  ShoppingCartContainer,
+  ShoppingCartBadgeContainer,
+  ShoppingCartText,
+  Logo,
+} from './styles';
 
 export default function Header() {
   return (
     <Container>
-      <Image source={logo} />
+      <Logo />
+
+      <ShoppingCartContainer>
+        <Icon name="shopping-basket" color="#fff" size={24} />
+        <ShoppingCartBadgeContainer>
+          <ShoppingCartText>5</ShoppingCartText>
+        </ShoppingCartBadgeContainer>
+      </ShoppingCartContainer>
     </Container>
   );
 }

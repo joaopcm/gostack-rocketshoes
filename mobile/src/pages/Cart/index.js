@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import * as CartActions from '../../store/modules/cart/actions';
 
 import {
   Container,
@@ -28,60 +31,44 @@ import colors from '../../styles/colors';
 import { formatPrice } from '../../utils/format';
 
 export default function Cart() {
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      title: 'Tênis de Caminhada Leve Confortável',
-      price: 179.9,
-      image:
-        'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-    },
-    {
-      id: 2,
-      title: 'Tênis de Caminhada Leve Confortável',
-      price: 179.9,
-      image:
-        'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-    },
-    {
-      id: 3,
-      title: 'Tênis de Caminhada Leve Confortável',
-      price: 179.9,
-      image:
-        'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-    },
-    {
-      id: 4,
-      title: 'Tênis de Caminhada Leve Confortável',
-      price: 179.9,
-      image:
-        'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-    },
-    {
-      id: 5,
-      title: 'Tênis de Caminhada Leve Confortável',
-      price: 179.9,
-      image:
-        'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-    },
-    {
-      id: 6,
-      title: 'Tênis de Caminhada Leve Confortável',
-      price: 179.9,
-      image:
-        'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-    },
-  ]);
+  const products = useSelector(state =>
+    state.cart.map(product => ({
+      ...product,
+      subtotal: formatPrice(product.price * product.amount),
+    }))
+  );
+
+  const total = useSelector(state =>
+    formatPrice(
+      state.cart.reduce((totalPrice, product) => {
+        return totalPrice + product.price * product.amount;
+      }, 0)
+    )
+  );
+
+  const dispatch = useDispatch();
+
+  function handleRemove(id) {
+    dispatch(CartActions.removeFromCart(id));
+  }
+
+  function handleIncrement(product) {
+    dispatch(CartActions.updateAmountRequest(product.id, product.amount + 1));
+  }
+
+  function handleDecrement(product) {
+    dispatch(CartActions.updateAmountRequest(product.id, product.amount - 1));
+  }
 
   return (
-    <Container>
+    <>
       {products.length === 0 ? (
         <EmptyContainer>
           <Icon name="remove-shopping-cart" size={64} color="#eee" />
           <EmptyText>Carrinho vazio</EmptyText>
         </EmptyContainer>
       ) : (
-        <>
+        <Container>
           <Products>
             {products.map(product => (
               <Product key={String(product.id)}>
@@ -89,9 +76,9 @@ export default function Cart() {
                   <ProductImage source={{ uri: product.image }} />
                   <ProductDetails>
                     <ProductTitle>{product.title}</ProductTitle>
-                    <ProductPrice>{formatPrice(product.price)}</ProductPrice>
+                    <ProductPrice>{product.formatedPrice}</ProductPrice>
                   </ProductDetails>
-                  <ProductDelete onPress={() => {}}>
+                  <ProductDelete onPress={() => handleRemove(product.id)}>
                     <Icon
                       name="delete-forever"
                       size={24}
@@ -100,35 +87,41 @@ export default function Cart() {
                   </ProductDelete>
                 </ProductInfo>
                 <ProductControls>
-                  <ProductControlButton>
+                  <ProductControlButton
+                    onPress={() => handleDecrement(product)}
+                  >
                     <Icon
                       name="remove-circle-outline"
                       size={24}
                       color={colors.primary}
                     />
                   </ProductControlButton>
-                  <ProductAmount editable={false}>2</ProductAmount>
-                  <ProductControlButton>
+                  <ProductAmount editable={false}>
+                    {product.amount}
+                  </ProductAmount>
+                  <ProductControlButton
+                    onPress={() => handleIncrement(product)}
+                  >
                     <Icon
                       name="add-circle-outline"
                       size={24}
                       color={colors.primary}
                     />
                   </ProductControlButton>
-                  <ProductSubtotal>R$600,90</ProductSubtotal>
+                  <ProductSubtotal>{product.subtotal}</ProductSubtotal>
                 </ProductControls>
               </Product>
             ))}
           </Products>
           <TotalContainer>
             <TotalText>TOTAL</TotalText>
-            <TotalAmount>R$1690,90</TotalAmount>
+            <TotalAmount>{total}</TotalAmount>
             <Order>
               <OrderText>FINALIZAR PEDIDO</OrderText>
             </Order>
           </TotalContainer>
-        </>
+        </Container>
       )}
-    </Container>
+    </>
   );
 }

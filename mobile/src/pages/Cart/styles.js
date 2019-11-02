@@ -12,7 +12,9 @@ export const Container = styled.ScrollView`
 
 export const Products = styled.View``;
 
-export const Product = styled.View``;
+export const Product = styled.View`
+  margin-top: 10px;
+`;
 
 export const ProductInfo = styled.View`
   flex-direction: row;
@@ -108,12 +110,14 @@ export const OrderText = styled.Text`
 `;
 
 export const EmptyContainer = styled.View`
-  align-items: center;
+  flex: 1;
   justify-content: center;
+  align-items: center;
 `;
 
 export const EmptyText = styled.Text`
   font-size: 24px;
   font-weight: bold;
   margin-top: 18px;
+  color: #999;
 `;

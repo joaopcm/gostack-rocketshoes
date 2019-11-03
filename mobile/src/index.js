@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import { StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 
@@ -11,17 +11,21 @@ import store from './store';
 
 import Routes from './routes';
 
-export default function App() {
-  const [navigator, setNavigator] = useState(null);
+export default class App extends Component {
+  componentDidMount() {
+    NavigationService.setNavigator(this.navigator);
+  }
 
-  useEffect(() => {
-    NavigationService.setNavigator(navigator);
-  }, []);
-
-  return (
-    <Provider store={store}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.header} />
-      <Routes ref={nav => setNavigator(nav)} />
-    </Provider>
-  );
+  render() {
+    return (
+      <Provider store={store}>
+        <StatusBar barStyle="light-content" backgroundColor={colors.header} />
+        <Routes
+          ref={nav => {
+            this.navigator = nav;
+          }}
+        />
+      </Provider>
+    );
+  }
 }

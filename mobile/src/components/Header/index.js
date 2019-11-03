@@ -20,7 +20,11 @@ function Header() {
     <Container>
       <Logo />
 
-      <ShoppingCartContainer onPress={() => NavigationService.navigate('Cart')}>
+      <ShoppingCartContainer
+        onPress={() => {
+          NavigationService.navigate('Cart');
+        }}
+      >
         <Icon name="shopping-basket" color="#fff" size={24} />
         <ShoppingCartBadgeContainer>
           <ShoppingCartText>{cartSize}</ShoppingCartText>

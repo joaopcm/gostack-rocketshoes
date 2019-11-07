@@ -11,7 +11,7 @@ Application made during Rocketseat bootcamp. It consists of a web and mobile sys
 
   <img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361">
 
-  <a href="https://github.com/jopcmelo/gostack-gympoint/stargazers">
+  <a href="https://github.com/jopcmelo/gostack-rocketshoes/stargazers">
     <img alt="Stargazers" src="https://img.shields.io/github/stars/jopcmelo/gostack-rocketshoes?style=social">
   </a>
 </p>

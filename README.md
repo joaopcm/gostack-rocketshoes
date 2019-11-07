@@ -35,9 +35,13 @@ $> git clone https://github.com/jopcmelo/gostack-rocketshoes.git
 A step by step series of examples that tell you how to get a development env running
 
 #### Front-end
-First install front-end dependencies and run app
+First install front-end dependencies
 ```
 $> cd ./frontend/ && yarn
+```
+Then run app
+```
+$> yarn start
 ```
 
 #### Mobile
